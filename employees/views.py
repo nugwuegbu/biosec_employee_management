@@ -14,6 +14,7 @@ import json
 from django.core.exceptions import ObjectDoesNotExist
 # Create your views here.
 
+API_URL = 'http://127.0.0.1:8000/'
 @api_view(["GET"])
 @csrf_exempt
 def employee_list(request):
@@ -76,7 +77,7 @@ def employee_delete(request,id):
         except Exception as e:
             return JsonResponse({'error': str(e)}, safe=False, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 def home(request):
-    response  = requests.get('http://127.0.0.1:8000/employees/list')
+    response  = requests.get(API_URL+'employees/list')
     employees = response.json()
     # for e in employees:
     #     print(e)
@@ -88,7 +89,7 @@ def store(request):
     if request.method == 'POST':
         employee  = request.POST
         employee_data = json.dumps({'first_name':employee.get('first_name'),'last_name':employee.get('last_name'),'email':employee.get('email'),'phone':employee.get('phone'),'job_title':employee.get('job_title'),'gender':int(employee.get('gender'))})
-        resp = requests.post('http://127.0.0.1:8000/employees/create',data=employee_data,headers={'Content-Type': 'application/json; charset=utf8'})
+        resp = requests.post(API_URL+'employees/create',data=employee_data,headers={'Content-Type': 'application/json; charset=utf8'})
         ActivityLogs.objects.create(
             activity_name='create new usser',
             activity_time = datetime.now(),
@@ -100,7 +101,7 @@ def store(request):
 
 def archive(request,id):
     if request.method  == 'GET':
-        resp = requests.get('http://127.0.0.1:8000/employees/delete/'+id)
+        resp = requests.get(API_URL+'employees/delete/'+id)
         ActivityLogs.objects.create(
             activity_name='Deleted usser',
             activity_time=datetime.now(),
@@ -118,7 +119,7 @@ def store_update(request,id):
         employee = request.POST
         data = json.dumps({'first_name':employee.get('first_name'),'last_name':employee.get('last_name'),'email':employee.get('email'),'phone':employee.get('phone'),'job_title':employee.get('job_title'),'gender':int(employee.get('gender'))})
         # print(int(employee.get('gender')))
-        resp = requests.put('http://127.0.0.1:8000/employees/update/'+id, data=data,headers={'Content-Type': 'application/json; charset=utf8'})
+        resp = requests.put(API_URL+'employees/update/'+id, data=data,headers={'Content-Type': 'application/json; charset=utf8'})
         ActivityLogs.objects.create(
             activity_name='Update usser',
             activity_time=datetime.now(),
