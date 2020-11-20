@@ -1,0 +1,78 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="col-md-12 col-auto">
+  <div class="card">
+    <div class="card-header">
+      <div class="row">
+          <div class="col-md-8">Staff List</div>
+          <a href="{% url 'new-staff' %}"><div class="col-md-4"><button class="btn btn-primary">create</button></div></a>
+      </div>
+    </div>
+      <div class="col-md-4">
+    <div class="card">
+        <div class="card-header">
+            <ul>
+                 <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="">Employees</a></li>
+                <li><a href="">Users</a></li>
+                <li><a href="{% url 'logs' %}">Activity Logs</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<table id="dtBasicExample" class="table" width="80%">
+  <thead>
+    <tr>
+      <th class="th-sm">FirstName
+      </th>
+        <th class="th-sm">LastName
+      </th>
+      <th class="th-sm">Position
+      </th>
+      <th class="th-sm">Email
+      </th>
+      <th class="th-sm">Phone
+      </th>
+      <th class="th-sm">Gender
+      </th>
+        <th colspan="2" class="th-sm">Actions
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+   {% for employee in employees %}
+   <tr>
+      <td>{{ employee.first_name }}</td>
+      <td>{{ employee.last_name }}</td>
+      <td>{{ employee.job_title }}</td>
+      <td>{{ employee.email }}</td>
+      <td>{{ employee.phone }}</td>
+      <td>{% if employee.gender == 0 %} Male {% else %} Female {% endif %}</td>
+       <td><a href="archive/{{ employee.id }}"><i class="fa fa-trash text-danger"></i></a></td>
+       <td><a href="update-record/{{ employee.id }}"><i class="fa fa-pen text-info"></i></a></td>
+    </tr>
+      {% endfor %}
+
+  </tbody>
+  <tfoot>
+    <tr>
+      <th>FirstName
+      </th>
+      <th>LastName
+      </th>
+      <th>Position
+      </th>
+      <th>Email
+      </th>
+      <th>Phone
+      </th>
+      <th>Gender
+      </th>
+        <th colspan="2">Actions
+      </th>
+    </tr>
+  </tfoot>
+</table>
+  </div>
+</div>
+{% endblock content %}

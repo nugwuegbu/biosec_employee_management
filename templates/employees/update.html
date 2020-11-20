@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="col-md-12 col-auto">
+  <div class="card">
+    <div class="card-header">
+      <div class="row">
+          <div class="col-md-8">Update Record for {{ employee.first_name }}</div>
+          <a href="{% url 'home' %}"><div class="col-md-4"><button class="btn btn-primary">Home>>Employees</button></div></a>
+      </div>
+    </div>
+
+      <form action="{% url 'update' employee.id %}" method="post">
+          {% csrf_token %}
+          <div class="form-group">
+<!--              <label for="first_name">FirstName</label>-->
+              <input type="text" name="first_name" value="{{employee.first_name}}" class="form-control">
+          </div>
+          <div class="form-group">
+<!--              <label for="last_name">LastName</label>-->
+              <input type="text" name="last_name" value="{{employee.last_name}}" class="form-control">
+          </div>
+          <div class="from-group">
+<!--              <label for="email">Email Address</label>-->
+              <input type="email" name="email" value="{{employee.email}}" class="form-control">
+          </div>
+          <div class="form-group">
+<!--              <label for="Name">Phone Number</label>-->
+              <input type="text" name="phone" value="{{employee.phone}}" class="form-control">
+          </div>
+          <div class="form-group">
+<!--              <label for="job_title">Job Title</label>-->
+              <input type="text" name="job_title" value="{{employee.job_title}}" class="form-control">
+          </div>
+          <div class="form-group">
+              <label for="gender">Gender</label>
+              <select name="gender" id="" class="form-control">
+                  <option value="{{employee.gender}}">{% if employee.gender == 0 %}Male{% else %} Female {% endif %}</option>
+                  <option value="0">Male</option>
+                  <option value="1">Female</option>
+              </select>
+          </div>
+          <div class="form-group">
+              <button class="btn btn-primary btn-full">Save</button>
+          </div>
+      </form>
+  </div>
+</div>
+
+{% endblock content %}

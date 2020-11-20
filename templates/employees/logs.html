@@ -1,0 +1,74 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="col-md-12 col-auto">
+  <div class="card">
+    <div class="card-header">
+      <div class="row">
+          <div class="col-md-8">Staff List</div>
+<!--          <a href="{% url 'new-staff' %}"><div class="col-md-4"><button class="btn btn-primary">create</button></div></a>-->
+      </div>
+    </div>
+      <div class="col-md-4">
+    <div class="card">
+        <div class="card-header">
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'home' %}">Employees</a></li>
+                <li><a href="">Users</a></li>
+                <li><a href="{% url 'logs' %}">Activity Logs</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<table id="dtBasicExample" class="table" width="80%">
+  <thead>
+    <tr>
+      <th class="th-sm">Action
+      </th>
+        <th class="th-sm">request
+      </th>
+      <th class="th-sm">response
+      </th>
+      <th class="th-sm">time
+      </th>
+<!--      <th class="th-sm">Phone-->
+<!--      </th>-->
+<!--      <th class="th-sm">Gender-->
+<!--      </th>-->
+<!--        <th colspan="2" class="th-sm">Actions-->
+<!--      </th>-->
+    </tr>
+  </thead>
+  <tbody>
+   {% for log in logs %}
+   <tr>
+      <td>{{ logs.activity_name }}</td>
+      <td>{{ logs.activity_request }}</td>
+      <td>{{ logs.response }}</td>
+      <td>{{ logs.activity_time }}</td>
+    </tr>
+      {% endfor %}
+
+  </tbody>
+  <tfoot>
+    <tr>
+      <th>FirstName
+      </th>
+      <th>LastName
+      </th>
+      <th>Position
+      </th>
+      <th>Email
+      </th>
+      <th>Phone
+      </th>
+      <th>Gender
+      </th>
+        <th colspan="2">Actions
+      </th>
+    </tr>
+  </tfoot>
+</table>
+  </div>
+</div>
+{% endblock content %}
